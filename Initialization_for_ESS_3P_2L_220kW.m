@@ -21,15 +21,16 @@ Ki_Edq=Kp_Edq*2*pi*10;
 
 Kp_Vdc=1;
 Ki_Vdc=Kp_Vdc*2*pi*10;
-Kp_Phase=Kp_Edq*0.1;
-Ki_Phase=Ki_Edq*0.1;
+
+Kp_Phase=0.21;
+Ki_Phase=10;
 
 
 % Kp_Idq=1*50;
 % Ki_Idq=25*50;
 
-Kp_Idq=L_grid/3/Ts_Control*3;
-Ki_Idq=Kp_Idq*2*pi*2;
+Kp_Idq=L_grid*2*pi*1600;
+Ki_Idq=Kp_Idq*2*pi*0.5;
 
 %% Droop control parameters
 m=-2*pi*Fnom_Grid*0.01/0.1;
