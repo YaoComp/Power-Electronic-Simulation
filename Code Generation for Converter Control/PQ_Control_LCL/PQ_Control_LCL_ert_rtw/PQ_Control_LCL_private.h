@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'PQ_Control_LCL'.
  *
- * Model version                  : 1.88
+ * Model version                  : 1.92
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Mon Apr 28 19:35:53 2025
+ * C/C++ source code generated on : Wed Feb  4 23:09:07 2026
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Texas Instruments->C2000
@@ -85,7 +85,6 @@
 
 /* Pooled Parameter (Mixed Expressions)
  * Referenced by:
- *   '<S1>/Memory'
  *   '<S1>/Memory1'
  *   '<S1>/Memory2'
  *   '<S5>/Constant'
@@ -192,11 +191,6 @@
  */
 #define rtCP_pooled12                  (0.0628318563F)
 
-/* Computed Parameter: Gain2_Gain
- * Referenced by: '<S6>/Gain2'
- */
-#define rtCP_Gain2_Gain                (1.0F)
-
 /* Pooled Parameter (Expression: 2*sqrt(2))
  * Referenced by:
  *   '<S4>/Constant'
@@ -217,7 +211,7 @@
 /* Expression: Modulation
  * Referenced by: '<S3>/Constant'
  */
-#define rtCP_Constant_Value_j          (2U)
+#define rtCP_Constant_Value_j          (1U)
 
 /* Computed Parameter: Zero_Value
  * Referenced by: '<S1>/Zero'
@@ -228,8 +222,8 @@ extern void DiscretedFirstOrderLowPassFilte(float rtu_u, float rtu_u_i, float
   rty_y[2], FuncInternalData0_DiscretedFi_T *PQ_Control_LCL_FuncGroup0);
 extern void Wrapped_Integrator_Update(float rtu_u,
   FuncInternalData0_Wrapped_Int_T *PQ_Control_LCL_FuncGroup0);
-extern void Wrapped_Integrator(float *rty_y, float rtp_WrappedStateLowerValue,
-  float rtp_WrappedStateUpperValue, FuncInternalData0_Wrapped_Int_T
+extern float Wrapped_Integrator(float rtp_WrappedStateLowerValue, float
+  rtp_WrappedStateUpperValue, FuncInternalData0_Wrapped_Int_T
   *PQ_Control_LCL_FuncGroup0);
 extern void PI_Controller_Init(FuncInternalData0_PI_Controll_T
   *PQ_Control_LCL_FuncGroup0);

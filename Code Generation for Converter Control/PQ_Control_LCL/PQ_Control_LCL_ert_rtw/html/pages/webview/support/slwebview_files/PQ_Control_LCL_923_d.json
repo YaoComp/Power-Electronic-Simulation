@@ -705,53 +705,6 @@
   }
  },
  {
-  "sid":"PQ_Control_LCL:923:203",
-  "inspector":{
-   "params":[
-    "InitialCondition",
-    "InheritSampleTime",
-    "LinearizeMemory",
-    "LinearizeAsDelay",
-    "StateName",
-    "StateMustResolveToSignalObject",
-    "RTWStateStorageTypeQualifier",
-    "StateSignalObject",
-    "StateStorageClass"
-   ],
-   "values":[
-    "0",
-    "on",
-    "off",
-    "off",
-    "",
-    "off",
-    "",
-    [
-    ],
-    "Auto"
-   ],
-   "tabs":[
-    "Main",
-    "State Attributes",
-    "-Other"
-   ],
-   "tabs_idx":[
-    0,
-    4,
-    6
-   ]
-  },
-  "viewer":{
-   "jshandler":"webview/handlers/ElementHandler"
-  },
-  "obj_viewer":[
-  ],
-  "finder":{
-   "blocktype":"Memory",
-   "masktype":""
-  }
- },
- {
   "sid":"PQ_Control_LCL:923:216",
   "inspector":{
    "params":[
@@ -1996,52 +1949,6 @@
  },
  {
   "sid":"PQ_Control_LCL:923:204#out:1;line",
-  "inspector":{
-   "params":[
-    "SignalNameFromLabel",
-    "MustResolveToSignal",
-    "ShowPropagatedSignal",
-    "DataLogging",
-    "TestPoint",
-    "SignalObjectPackage",
-    "StorageClass",
-    "Description",
-    "documentLink"
-   ],
-   "values":[
-    "",
-    "off",
-    "off",
-    "off",
-    "off",
-    "Simulink",
-    "Auto",
-    "",
-    ""
-   ],
-   "tabs":[
-    "Parameter Attributes",
-    "Logging and Accessibility",
-    "Code Generation",
-    "Documentation"
-   ],
-   "tabs_idx":[
-    0,
-    3,
-    5,
-    7
-   ]
-  },
-  "viewer":{
-   "jshandler":"webview/handlers/ElementHandler"
-  },
-  "obj_viewer":[
-  ],
-  "finder":[
-  ]
- },
- {
-  "sid":"PQ_Control_LCL:923:203#out:1;line",
   "inspector":{
    "params":[
     "SignalNameFromLabel",

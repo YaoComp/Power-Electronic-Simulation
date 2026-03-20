@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'PQ_Control_LCL'.
  *
- * Model version                  : 1.88
+ * Model version                  : 1.92
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Mon Apr 28 19:35:53 2025
+ * C/C++ source code generated on : Wed Feb  4 23:09:07 2026
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Texas Instruments->C2000
@@ -64,7 +64,6 @@ typedef struct {
                               /* '<S1>/Discreted First Order Low-Pass Filter' */
   float Memory2_PreviousInput[2];      /* '<S1>/Memory2' */
   float Memory1_PreviousInput[2];      /* '<S1>/Memory1' */
-  float Memory_PreviousInput;          /* '<S1>/Memory' */
 } FuncInternalData0_DSRF_PLL_T;
 
 /* Internal Data Grouped For Same Function, for system '<Root>/Sequency_Separator1' */
@@ -88,6 +87,8 @@ typedef struct {
   float Ic_dq_p[2];                    /* '<S9>/abc2dq1' */
   float PQ_REF[2];                     /* '<Root>/Divide2' */
   float Ic_dq_p_ref[2];                /* '<S5>/Signal Conversion' */
+  float If_ABC[3];                     /* '<Root>/Divide4' */
+  float If_dq[2];                      /* '<S9>/abc2dq3' */
   float Uc_dq_p[2];                    /* '<S6>/Divide' */
   float Ec_dq_n[2];                    /* '<Root>/DSRF-PLL' */
   float Ic_ABC_n[3];                   /* '<Root>/Sequency_Separator1' */
@@ -123,6 +124,9 @@ typedef struct {
 
 /* Parameters (default storage) */
 struct P_PQ_Control_LCL_T_ {
+  float Gain_for_ActiveDamping;        /* Variable: Gain_for_ActiveDamping
+                                        * Referenced by: '<S6>/Constant4'
+                                        */
   float Inom;                          /* Variable: Inom
                                         * Referenced by:
                                         *   '<Root>/Constant2'

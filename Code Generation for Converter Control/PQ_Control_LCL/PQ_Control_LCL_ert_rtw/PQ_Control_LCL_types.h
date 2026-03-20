@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'PQ_Control_LCL'.
  *
- * Model version                  : 1.88
+ * Model version                  : 1.92
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Mon Apr 28 19:35:53 2025
+ * C/C++ source code generated on : Wed Feb  4 23:09:07 2026
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Texas Instruments->C2000

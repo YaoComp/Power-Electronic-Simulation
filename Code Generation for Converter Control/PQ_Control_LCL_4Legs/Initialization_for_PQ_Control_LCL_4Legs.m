@@ -18,5 +18,6 @@ Kp_Idq=L_grid*2*pi*1600;
 Ki_Idq=Kp_Idq*2*pi*0.5;
 Gain_for_ActiveDamping=1;
 
-Kp_Un=2*pi*Fnom_Grid*L_neutral*10;
-Ki_Un=Cdc/L_neutral*Kp_Un^2*Udc_ref/Inom;
+Kp_Un_Current=2*pi*Fnom_Grid*L_neutral*20;
+Kp_Un_Voltage=Cdc/L_neutral*Kp_Un_Current^2*0.01*Udc_ref;
+Ki_Un_Voltage=Kp_Un_Voltage*2*pi*1;

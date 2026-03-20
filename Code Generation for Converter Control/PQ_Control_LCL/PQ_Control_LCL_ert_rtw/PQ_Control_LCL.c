@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'PQ_Control_LCL'.
  *
- * Model version                  : 1.88
+ * Model version                  : 1.92
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Mon Apr 28 19:35:53 2025
+ * C/C++ source code generated on : Wed Feb  4 23:09:07 2026
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Texas Instruments->C2000
@@ -72,7 +72,7 @@ void DiscretedFirstOrderLowPassFilte(float rtu_u, float rtu_u_i, float rty_y[2],
 }
 
 /* Outputs for atomic system: '<S1>/Integrator with Wrapped State1' */
-void Wrapped_Integrator(float *rty_y, float rtp_WrappedStateLowerValue, float
+float Wrapped_Integrator(float rtp_WrappedStateLowerValue, float
   rtp_WrappedStateUpperValue, FuncInternalData0_Wrapped_Int_T
   *PQ_Control_LCL_FuncGroup0)
 {
@@ -99,7 +99,7 @@ void Wrapped_Integrator(float *rty_y, float rtp_WrappedStateLowerValue, float
     PQ_Control_LCL_FuncGroup0->Integrator_DSTATE = rtCP_pooled4;
   }
 
-  *rty_y = PQ_Control_LCL_FuncGroup0->Integrator_DSTATE;
+  return PQ_Control_LCL_FuncGroup0->Integrator_DSTATE;
 
   /* End of DiscreteIntegrator: '<S14>/Integrator' */
 }
@@ -284,14 +284,13 @@ void DSRF_PLL(const float rtu_ABC[3], float *rty_Frequency, float *rty_wt, float
   float rtb_Add1_o;
   float rtb_Add_ce;
   float rtb_Add_k;
-  float rtb_Divide1;
+  float rtb_Divide1_p;
   float rtb_Divide2_h;
   float rtb_Divide3_i;
   float rtb_Divide_h;
   float rtb_Fcn;
   float rtb_Fcn1;
   float rtb_Gain_d;
-  float rtb_Memory;
   float rtb_Memory1_idx_0;
   float rtb_Memory1_idx_1;
   float rtb_Saturation_p;
@@ -308,13 +307,17 @@ void DSRF_PLL(const float rtu_ABC[3], float *rty_Frequency, float *rty_wt, float
 
   /* End of Outputs for SubSystem: '<S1>/abc2&#x3B1;&#x3B2;0' */
 
-  /* Memory: '<S1>/Memory' */
-  rtb_Memory = PQ_Control_LCL_FuncGroup0->Memory_PreviousInput;
+  /* Outputs for Atomic SubSystem: '<S1>/Integrator with Wrapped State1' */
+  *rty_wt = Wrapped_Integrator(rtCP_IntegratorwithWrappedState,
+    rtCP_IntegratorwithWrappedSta_o,
+    &PQ_Control_LCL_FuncGroup0->FuncInternalData0_Integratorwi);
+
+  /* End of Outputs for SubSystem: '<S1>/Integrator with Wrapped State1' */
 
   /* Outputs for Atomic SubSystem: '<S1>/&#x3B1;&#x3B2;2dq' */
 
   /* Gain: '<S16>/Gain1' */
-  AlphaBeta2dq(&rtb_Gain1[0], rtb_Memory, &rtb_Fcn1, &rtb_Saturation_p);
+  AlphaBeta2dq(&rtb_Gain1[0], *rty_wt, &rtb_Fcn1, &rtb_Saturation_p);
 
   /* End of Outputs for SubSystem: '<S1>/&#x3B1;&#x3B2;2dq' */
 
@@ -323,19 +326,19 @@ void DSRF_PLL(const float rtu_ABC[3], float *rty_Frequency, float *rty_wt, float
   rtb_Memory1_idx_1 = PQ_Control_LCL_FuncGroup0->Memory2_PreviousInput[1];
 
   /* Gain: '<S10>/Gain' */
-  rtb_Divide1 = rtCP_Gain_Gain * rtb_Memory;
+  rtb_Divide1_p = rtCP_Gain_Gain * *rty_wt;
 
   /* Trigonometry: '<S10>/Cos1' */
-  rtb_Divide_h = sinf(rtb_Divide1);
+  rtb_Divide_h = sinf(rtb_Divide1_p);
 
   /* Product: '<S10>/Divide2' */
   rtb_Divide3_i = rtb_Memory1_idx_0 * rtb_Divide_h;
 
   /* Trigonometry: '<S10>/Cos' */
-  rtb_Divide1 = cosf(rtb_Divide1);
+  rtb_Divide1_p = cosf(rtb_Divide1_p);
 
   /* Product: '<S10>/Divide3' */
-  rtb_Divide2_h = rtb_Memory1_idx_1 * rtb_Divide1;
+  rtb_Divide2_h = rtb_Memory1_idx_1 * rtb_Divide1_p;
 
   /* Sum: '<S10>/Add1' */
   rtb_Add1_j = rtb_Saturation_p + rtb_Divide3_i - rtb_Divide2_h;
@@ -354,16 +357,16 @@ void DSRF_PLL(const float rtu_ABC[3], float *rty_Frequency, float *rty_wt, float
   Add = rtb_Fcn + rtb_Saturation_p;
 
   /* Product: '<S10>/Divide' */
-  rtb_Divide1 *= rtb_Memory1_idx_0;
+  rtb_Divide1_p *= rtb_Memory1_idx_0;
 
   /* Product: '<S10>/Divide1' */
   rtb_Divide_h *= rtb_Memory1_idx_1;
 
   /* Sum: '<S10>/Add' */
-  rtb_Add_ce = rtb_Fcn1 - rtb_Divide1 - rtb_Divide_h;
+  rtb_Add_ce = rtb_Fcn1 - rtb_Divide1_p - rtb_Divide_h;
 
   /* Gain: '<S1>/Gain' */
-  rtb_Gain_d = rtCP_pooled9 * rtb_Memory;
+  rtb_Gain_d = rtCP_pooled9 * *rty_wt;
 
   /* Outputs for Atomic SubSystem: '<S1>/&#x3B1;&#x3B2;2dq1' */
 
@@ -389,10 +392,10 @@ void DSRF_PLL(const float rtu_ABC[3], float *rty_Frequency, float *rty_wt, float
   rtb_Divide2_h = sinf(rtb_Divide2_h);
 
   /* Product: '<S11>/Divide1' */
-  rtb_Divide1 = rtb_Divide2_h * rtb_Memory1_idx_1;
+  rtb_Divide1_p = rtb_Divide2_h * rtb_Memory1_idx_1;
 
   /* Sum: '<S11>/Add' */
-  rtb_Add_k = rtb_Fcn - rtb_Divide_h + rtb_Divide1;
+  rtb_Add_k = rtb_Fcn - rtb_Divide_h + rtb_Divide1_p;
 
   /* Product: '<S11>/Divide2' */
   rtb_Divide2_h *= rtb_Memory1_idx_0;
@@ -420,15 +423,11 @@ void DSRF_PLL(const float rtu_ABC[3], float *rty_Frequency, float *rty_wt, float
    */
   *rty_Frequency = (1.0F / rtCP_Constant_Value) * Add;
 
-  /* Outputs for Atomic SubSystem: '<S1>/Integrator with Wrapped State1' */
-  Wrapped_Integrator(rty_wt, rtCP_IntegratorwithWrappedState,
-                     rtCP_IntegratorwithWrappedSta_o,
-                     &PQ_Control_LCL_FuncGroup0->FuncInternalData0_Integratorwi);
+  /* Update for Atomic SubSystem: '<S1>/Integrator with Wrapped State1' */
+  Wrapped_Integrator_Update(Add,
+    &PQ_Control_LCL_FuncGroup0->FuncInternalData0_Integratorwi);
 
-  /* End of Outputs for SubSystem: '<S1>/Integrator with Wrapped State1' */
-
-  /* Update for Memory: '<S1>/Memory' */
-  PQ_Control_LCL_FuncGroup0->Memory_PreviousInput = *rty_wt;
+  /* End of Update for SubSystem: '<S1>/Integrator with Wrapped State1' */
 
   /* Update for Memory: '<S1>/Memory2' */
   PQ_Control_LCL_FuncGroup0->Memory2_PreviousInput[0] = rty_dq_n[0];
@@ -441,12 +440,6 @@ void DSRF_PLL(const float rtu_ABC[3], float *rty_Frequency, float *rty_wt, float
 
   /* Update for Memory: '<S1>/Memory1' */
   PQ_Control_LCL_FuncGroup0->Memory1_PreviousInput[1] = rty_dq_p[1];
-
-  /* Update for Atomic SubSystem: '<S1>/Integrator with Wrapped State1' */
-  Wrapped_Integrator_Update(Add,
-    &PQ_Control_LCL_FuncGroup0->FuncInternalData0_Integratorwi);
-
-  /* End of Update for SubSystem: '<S1>/Integrator with Wrapped State1' */
 }
 
 /* Output and update for atomic system: '<Root>/Line2Phase_Voltage_Conversion' */
@@ -653,27 +646,26 @@ void PQ_Control_Step(float arg_Mabc1[3], const float arg_PQ_Ref1[2], const float
   float rtb_Gain3[3];
   float rtb_Gain3_c[3];
   float rtb_Gain3_p[3];
-  float rtb_If_ABC[3];
   float rtb_SignalConversion_m[3];
   float rtb_Gain2_aq[2];
-  float rtb_Gain2_b[2];
-  float rtb_Gain2_h[2];
+  float rtb_Gain2_i[2];
   float rtb_SignalConversion[2];
   float rtb_SignalConversion_d[2];
-  float Integrator;
+  float rtb_SignalConversion_ku[2];
   float rtb_Divide;
+  float rtb_Divide1_idx_0;
+  float rtb_Divide1_idx_1;
   float rtb_Divide2;
   float rtb_Divide2_e;
   float rtb_Divide3;
   float rtb_Divide4;
   float rtb_Gain2;
+  float rtb_Integrator;
   float rtb_Negetive_wt;
   float rtb_Saturation_2;
-  float rtb_Saturation_idx_0;
   float rtb_Saturation_idx_1;
   float rtb_Saturation_idx_2;
   float rtb_Saturation_n;
-  float rtb_Sum2;
   float rtb_Sum3;
 
   /* Product: '<Root>/Divide' incorporates:
@@ -701,7 +693,7 @@ void PQ_Control_Step(float arg_Mabc1[3], const float arg_PQ_Ref1[2], const float
 
   /* Outputs for Atomic SubSystem: '<Root>/DSRF-PLL' */
   DSRF_PLL(PQ_Control_LC_FuncInternalData0.Ec_ABC_Phase, &rtb_Divide,
-           &Integrator, rtb_Gain2_aq, rtb_Gain2_b, rtCP_pooled1,
+           &rtb_Integrator, rtb_Gain2_aq, rtb_Gain2_i, rtCP_pooled1,
            &PQ_Control_LC_FuncInternalData0.FuncInternalData0_DSRFPLL);
 
   /* End of Outputs for SubSystem: '<Root>/DSRF-PLL' */
@@ -735,7 +727,7 @@ void PQ_Control_Step(float arg_Mabc1[3], const float arg_PQ_Ref1[2], const float
   PQ_Control_LC_FuncInternalData0.Ic_ABC_p[2] = rtb_Gain3_c[2];
 
   /* SignalConversion generated from: '<Root>/DSRF-PLL' */
-  PQ_Control_LC_FuncInternalData0.wt = Integrator;
+  PQ_Control_LC_FuncInternalData0.wt = rtb_Integrator;
 
   /* Outputs for Atomic SubSystem: '<S9>/abc2dq1' */
   abc2dq(PQ_Control_LC_FuncInternalData0.Ic_ABC_p,
@@ -809,35 +801,52 @@ void PQ_Control_Step(float arg_Mabc1[3], const float arg_PQ_Ref1[2], const float
    *  Constant: '<Root>/Constant2'
    *  Inport: '<Root>/If_abc'
    */
-  rtb_If_ABC[0] = (arg_If_abc1[0] / PQ_Control_LCL_P.Inom) /
-    rtCP_Constant_Value_k;
-  rtb_If_ABC[1] = (arg_If_abc1[1] / PQ_Control_LCL_P.Inom) /
-    rtCP_Constant_Value_k;
-  rtb_If_ABC[2] = (arg_If_abc1[2] / PQ_Control_LCL_P.Inom) /
-    rtCP_Constant_Value_k;
+  PQ_Control_LC_FuncInternalData0.If_ABC[0] = (arg_If_abc1[0] /
+    PQ_Control_LCL_P.Inom) / rtCP_Constant_Value_k;
+  PQ_Control_LC_FuncInternalData0.If_ABC[1] = (arg_If_abc1[1] /
+    PQ_Control_LCL_P.Inom) / rtCP_Constant_Value_k;
+  PQ_Control_LC_FuncInternalData0.If_ABC[2] = (arg_If_abc1[2] /
+    PQ_Control_LCL_P.Inom) / rtCP_Constant_Value_k;
 
   /* Outputs for Atomic SubSystem: '<S9>/abc2dq3' */
-  abc2dq(rtb_If_ABC, PQ_Control_LC_FuncInternalData0.wt, rtb_Gain2_h);
+  abc2dq(PQ_Control_LC_FuncInternalData0.If_ABC,
+         PQ_Control_LC_FuncInternalData0.wt, rtb_SignalConversion);
 
   /* End of Outputs for SubSystem: '<S9>/abc2dq3' */
 
-  /* Gain: '<S6>/Gain2' */
-  rtb_Gain2_h[0] *= rtCP_Gain2_Gain;
-  rtb_Gain2_h[1] *= rtCP_Gain2_Gain;
+  /* SignalConversion generated from: '<S9>/abc2dq3' */
+  rtb_Divide1_idx_1 = rtb_SignalConversion[0];
+  PQ_Control_LC_FuncInternalData0.If_dq[0] = rtb_Divide1_idx_1;
+
+  /* Product: '<S6>/Divide1' incorporates:
+   *  Constant: '<S6>/Constant4'
+   */
+  rtb_Divide1_idx_0 = rtb_Divide1_idx_1 *
+    PQ_Control_LCL_P.Gain_for_ActiveDamping;
+
+  /* SignalConversion generated from: '<S9>/abc2dq3' */
+  rtb_Divide1_idx_1 = rtb_SignalConversion[1];
+  PQ_Control_LC_FuncInternalData0.If_dq[1] = rtb_Divide1_idx_1;
+
+  /* Product: '<S6>/Divide1' incorporates:
+   *  Constant: '<S6>/Constant4'
+   */
+  rtb_Divide1_idx_1 *= PQ_Control_LCL_P.Gain_for_ActiveDamping;
 
   /* Sum: '<S6>/Sum2' */
   rtb_Sum3 = PQ_Control_LC_FuncInternalData0.Ec_dq_p[0] - rtb_Saturation_n +
-    rtb_Sum3 - rtb_Gain2_h[0];
+    rtb_Sum3 - rtb_Divide1_idx_0;
 
   /* Sum: '<S6>/Sum1' */
-  rtb_Sum2 = PQ_Control_LC_FuncInternalData0.Ic_dq_p_ref[1] -
+  rtb_Divide1_idx_0 = PQ_Control_LC_FuncInternalData0.Ic_dq_p_ref[1] -
     PQ_Control_LC_FuncInternalData0.Ic_dq_p[1];
 
   /* Product: '<S6>/Divide4' incorporates:
    *  Constant: '<S6>/Constant1'
    *  Constant: '<S6>/Constant2'
    */
-  rtb_Divide4 = (rtb_Sum2 * PQ_Control_LCL_P.Inom) / PQ_Control_LCL_P.Unom_Phase;
+  rtb_Divide4 = (rtb_Divide1_idx_0 * PQ_Control_LCL_P.Inom) /
+    PQ_Control_LCL_P.Unom_Phase;
 
   /* Outputs for Atomic SubSystem: '<S6>/PI Controller1' */
   /* Inport: '<Root>/Reset' */
@@ -852,15 +861,15 @@ void PQ_Control_Step(float arg_Mabc1[3], const float arg_PQ_Ref1[2], const float
    *  Constant: '<S6>/Constant1'
    *  Constant: '<S6>/Constant2'
    */
-  rtb_Sum2 = (PQ_Control_LC_FuncInternalData0.Ic_dq_p[0] * PQ_Control_LCL_P.Inom)
-    / PQ_Control_LCL_P.Unom_Phase;
+  rtb_Divide1_idx_0 = (PQ_Control_LC_FuncInternalData0.Ic_dq_p[0] *
+                       PQ_Control_LCL_P.Inom) / PQ_Control_LCL_P.Unom_Phase;
 
   /* Gain: '<S6>/Gain1' */
-  rtb_Sum2 *= rtCP_pooled12;
+  rtb_Divide1_idx_0 *= rtCP_pooled12;
 
   /* Sum: '<S6>/Sum3' */
-  rtb_Sum2 = PQ_Control_LC_FuncInternalData0.Ec_dq_p[1] - rtb_Saturation_n -
-    rtb_Sum2 - rtb_Gain2_h[1];
+  rtb_Divide1_idx_0 = PQ_Control_LC_FuncInternalData0.Ec_dq_p[1] -
+    rtb_Saturation_n - rtb_Divide1_idx_0 - rtb_Divide1_idx_1;
 
   /* Product: '<Root>/Divide3' incorporates:
    *  Constant: '<Root>/Constant6'
@@ -876,7 +885,7 @@ void PQ_Control_Step(float arg_Mabc1[3], const float arg_PQ_Ref1[2], const float
   PQ_Control_LC_FuncInternalData0.Uc_dq_p[0] = (((rtb_Sum3 *
     PQ_Control_LCL_P.Unom_Phase) * rtCP_pooled13) /
     PQ_Control_LC_FuncInternalData0.UDC) / PQ_Control_LCL_P.Udc_ref;
-  PQ_Control_LC_FuncInternalData0.Uc_dq_p[1] = (((rtb_Sum2 *
+  PQ_Control_LC_FuncInternalData0.Uc_dq_p[1] = (((rtb_Divide1_idx_0 *
     PQ_Control_LCL_P.Unom_Phase) * rtCP_pooled13) /
     PQ_Control_LC_FuncInternalData0.UDC) / PQ_Control_LCL_P.Udc_ref;
 
@@ -887,8 +896,8 @@ void PQ_Control_Step(float arg_Mabc1[3], const float arg_PQ_Ref1[2], const float
   /* End of Outputs for SubSystem: '<S8>/dq2abc' */
 
   /* SignalConversion generated from: '<Root>/DSRF-PLL' */
-  PQ_Control_LC_FuncInternalData0.Ec_dq_n[0] = rtb_Gain2_b[0];
-  PQ_Control_LC_FuncInternalData0.Ec_dq_n[1] = rtb_Gain2_b[1];
+  PQ_Control_LC_FuncInternalData0.Ec_dq_n[0] = rtb_Gain2_i[0];
+  PQ_Control_LC_FuncInternalData0.Ec_dq_n[1] = rtb_Gain2_i[1];
 
   /* SignalConversion generated from: '<Root>/Sequency_Separator1' */
   PQ_Control_LC_FuncInternalData0.Ic_ABC_n[0] = rtb_Gain3_p[0];
@@ -900,13 +909,13 @@ void PQ_Control_Step(float arg_Mabc1[3], const float arg_PQ_Ref1[2], const float
 
   /* Outputs for Atomic SubSystem: '<S9>/abc2dq2' */
   abc2dq(PQ_Control_LC_FuncInternalData0.Ic_ABC_n, rtb_Negetive_wt,
-         rtb_SignalConversion);
+         rtb_SignalConversion_ku);
 
   /* End of Outputs for SubSystem: '<S9>/abc2dq2' */
 
   /* SignalConversion generated from: '<S9>/abc2dq2' */
-  PQ_Control_LC_FuncInternalData0.Ic_dq_n[0] = rtb_SignalConversion[0];
-  PQ_Control_LC_FuncInternalData0.Ic_dq_n[1] = rtb_SignalConversion[1];
+  PQ_Control_LC_FuncInternalData0.Ic_dq_n[0] = rtb_SignalConversion_ku[0];
+  PQ_Control_LC_FuncInternalData0.Ic_dq_n[1] = rtb_SignalConversion_ku[1];
 
   /* SignalConversion: '<S5>/Signal Conversion1' incorporates:
    *  Constant: '<S5>/Constant'
@@ -915,14 +924,14 @@ void PQ_Control_Step(float arg_Mabc1[3], const float arg_PQ_Ref1[2], const float
   PQ_Control_LC_FuncInternalData0.Ic_dq_n_ref[1] = rtCP_pooled4;
 
   /* Sum: '<S4>/Sum' */
-  rtb_Sum2 = PQ_Control_LC_FuncInternalData0.Ic_dq_n_ref[0] -
+  rtb_Divide1_idx_0 = PQ_Control_LC_FuncInternalData0.Ic_dq_n_ref[0] -
     PQ_Control_LC_FuncInternalData0.Ic_dq_n[0];
 
   /* Product: '<S4>/Divide2' incorporates:
    *  Constant: '<S4>/Constant1'
    *  Constant: '<S4>/Constant2'
    */
-  rtb_Divide2_e = (rtb_Sum2 * PQ_Control_LCL_P.Inom) /
+  rtb_Divide2_e = (rtb_Divide1_idx_0 * PQ_Control_LCL_P.Inom) /
     PQ_Control_LCL_P.Unom_Phase;
 
   /* Outputs for Atomic SubSystem: '<S4>/PI Controller1' */
@@ -938,15 +947,15 @@ void PQ_Control_Step(float arg_Mabc1[3], const float arg_PQ_Ref1[2], const float
    *  Constant: '<S4>/Constant1'
    *  Constant: '<S4>/Constant2'
    */
-  rtb_Sum2 = (PQ_Control_LC_FuncInternalData0.Ic_dq_n[1] * PQ_Control_LCL_P.Inom)
-    / PQ_Control_LCL_P.Unom_Phase;
+  rtb_Divide1_idx_0 = (PQ_Control_LC_FuncInternalData0.Ic_dq_n[1] *
+                       PQ_Control_LCL_P.Inom) / PQ_Control_LCL_P.Unom_Phase;
 
   /* Gain: '<S4>/Gain' */
-  rtb_Sum2 *= rtCP_pooled12;
+  rtb_Divide1_idx_0 *= rtCP_pooled12;
 
   /* Sum: '<S4>/Sum2' */
-  rtb_Sum2 = PQ_Control_LC_FuncInternalData0.Ec_dq_n[0] - rtb_Saturation_n -
-    rtb_Sum2;
+  rtb_Divide1_idx_0 = PQ_Control_LC_FuncInternalData0.Ec_dq_n[0] -
+    rtb_Saturation_n - rtb_Divide1_idx_0;
 
   /* Sum: '<S4>/Sum1' */
   rtb_Sum3 = PQ_Control_LC_FuncInternalData0.Ic_dq_n_ref[1] -
@@ -985,7 +994,7 @@ void PQ_Control_Step(float arg_Mabc1[3], const float arg_PQ_Ref1[2], const float
    *  Constant: '<S4>/Constant3'
    *  Constant: '<S4>/Constant6'
    */
-  PQ_Control_LC_FuncInternalData0.Uc_dq_n[0] = (((rtb_Sum2 *
+  PQ_Control_LC_FuncInternalData0.Uc_dq_n[0] = (((rtb_Divide1_idx_0 *
     PQ_Control_LCL_P.Unom_Phase) * rtCP_pooled13) /
     PQ_Control_LC_FuncInternalData0.UDC) / PQ_Control_LCL_P.Udc_ref;
   PQ_Control_LC_FuncInternalData0.Uc_dq_n[1] = (((rtb_Sum3 *
@@ -1008,11 +1017,11 @@ void PQ_Control_Step(float arg_Mabc1[3], const float arg_PQ_Ref1[2], const float
 
   /* Saturate: '<S8>/Saturation' */
   if (rtb_Saturation_idx_2 > rtCP_Saturation_UpperSat) {
-    rtb_Saturation_idx_0 = rtCP_Saturation_UpperSat;
+    rtb_Divide1_idx_1 = rtCP_Saturation_UpperSat;
   } else if (rtb_Saturation_idx_2 < rtCP_Saturation_LowerSat) {
-    rtb_Saturation_idx_0 = rtCP_Saturation_LowerSat;
+    rtb_Divide1_idx_1 = rtCP_Saturation_LowerSat;
   } else {
-    rtb_Saturation_idx_0 = rtb_Saturation_idx_2;
+    rtb_Divide1_idx_1 = rtb_Saturation_idx_2;
   }
 
   /* Sum: '<S8>/Add' */
@@ -1051,55 +1060,55 @@ void PQ_Control_Step(float arg_Mabc1[3], const float arg_PQ_Ref1[2], const float
    */
   if (rtCP_Constant_Value_j == 1U) {
     /* MultiPortSwitch: '<S3>/Multiport Switch' */
-    PQ_Control_LC_FuncInternalData0.Mabc[0] = rtb_Saturation_idx_0;
+    PQ_Control_LC_FuncInternalData0.Mabc[0] = rtb_Divide1_idx_1;
     PQ_Control_LC_FuncInternalData0.Mabc[1] = rtb_Saturation_idx_1;
     PQ_Control_LC_FuncInternalData0.Mabc[2] = rtb_Saturation_idx_2;
   } else {
     /* MinMax: '<S22>/Max1' */
-    rtb_Sum3 = rtb_Saturation_idx_0;
+    rtb_Sum3 = rtb_Divide1_idx_1;
 
     /* MinMax: '<S22>/Max' */
-    rtb_Sum2 = rtb_Saturation_idx_0;
+    rtb_Divide1_idx_0 = rtb_Divide1_idx_1;
 
     /* MinMax: '<S22>/Max1' */
     rtb_Saturation_2 = rtb_Saturation_idx_1;
     rtb_Sum3 = fminf(rtb_Sum3, rtb_Saturation_2);
 
     /* MinMax: '<S22>/Max' */
-    rtb_Sum2 = fmaxf(rtb_Sum2, rtb_Saturation_2);
+    rtb_Divide1_idx_0 = fmaxf(rtb_Divide1_idx_0, rtb_Saturation_2);
 
     /* MinMax: '<S22>/Max1' */
     rtb_Saturation_2 = rtb_Saturation_idx_2;
     rtb_Sum3 = fminf(rtb_Sum3, rtb_Saturation_2);
 
     /* MinMax: '<S22>/Max' */
-    rtb_Sum2 = fmaxf(rtb_Sum2, rtb_Saturation_2);
+    rtb_Divide1_idx_0 = fmaxf(rtb_Divide1_idx_0, rtb_Saturation_2);
 
     /* Sum: '<S22>/Add' */
-    rtb_Sum3 += rtb_Sum2;
+    rtb_Sum3 += rtb_Divide1_idx_0;
 
     /* Gain: '<S22>/Gain' */
     rtb_Sum3 *= rtCP_pooled10;
 
     /* Sum: '<S22>/Add1' */
-    rtb_Saturation_idx_0 -= rtb_Sum3;
+    rtb_Divide1_idx_1 -= rtb_Sum3;
 
     /* MultiPortSwitch: '<S3>/Multiport Switch' */
-    PQ_Control_LC_FuncInternalData0.Mabc[0] = rtb_Saturation_idx_0;
+    PQ_Control_LC_FuncInternalData0.Mabc[0] = rtb_Divide1_idx_1;
 
     /* Sum: '<S22>/Add1' */
-    rtb_Saturation_idx_0 = rtb_Saturation_idx_1;
-    rtb_Saturation_idx_0 -= rtb_Sum3;
+    rtb_Divide1_idx_1 = rtb_Saturation_idx_1;
+    rtb_Divide1_idx_1 -= rtb_Sum3;
 
     /* MultiPortSwitch: '<S3>/Multiport Switch' */
-    PQ_Control_LC_FuncInternalData0.Mabc[1] = rtb_Saturation_idx_0;
+    PQ_Control_LC_FuncInternalData0.Mabc[1] = rtb_Divide1_idx_1;
 
     /* Sum: '<S22>/Add1' */
-    rtb_Saturation_idx_0 = rtb_Saturation_idx_2;
-    rtb_Saturation_idx_0 -= rtb_Sum3;
+    rtb_Divide1_idx_1 = rtb_Saturation_idx_2;
+    rtb_Divide1_idx_1 -= rtb_Sum3;
 
     /* MultiPortSwitch: '<S3>/Multiport Switch' */
-    PQ_Control_LC_FuncInternalData0.Mabc[2] = rtb_Saturation_idx_0;
+    PQ_Control_LC_FuncInternalData0.Mabc[2] = rtb_Divide1_idx_1;
   }
 
   /* End of MultiPortSwitch: '<S3>/Multiport Switch' */

@@ -652,14 +652,6 @@
     "icon":"MaskedSubsystemIcon_icon"
    },
    {
-    "sid":"PQ_Control_LCL:923:203",
-    "rsid":"PQ_Control_LCL:923:203",
-    "name":"Memory",
-    "label":"Memory",
-    "className":"Simulink.Memory",
-    "icon":"BlockIcon_icon"
-   },
-   {
     "sid":"PQ_Control_LCL:923:216",
     "rsid":"PQ_Control_LCL:923:216",
     "name":"Memory1",
@@ -814,14 +806,6 @@
    {
     "sid":"PQ_Control_LCL:923:204#out:1;line",
     "rsid":"PQ_Control_LCL:923:204#out:1;line",
-    "name":"",
-    "label":"",
-    "className":"Simulink.Line",
-    "icon":"LineIcon_icon"
-   },
-   {
-    "sid":"PQ_Control_LCL:923:203#out:1;line",
-    "rsid":"PQ_Control_LCL:923:203#out:1;line",
     "name":"",
     "label":"",
     "className":"Simulink.Line",
@@ -3642,14 +3626,6 @@
     "icon":"LineIcon_icon"
    },
    {
-    "sid":"PQ_Control_LCL:673#out:1;line",
-    "rsid":"PQ_Control_LCL:673#out:1;line",
-    "name":"",
-    "label":"",
-    "className":"Simulink.Line",
-    "icon":"LineIcon_icon"
-   },
-   {
     "sid":"PQ_Control_LCL:675#out:1;line",
     "rsid":"PQ_Control_LCL:675#out:1;line",
     "name":"",
@@ -3772,6 +3748,14 @@
    {
     "sid":"PQ_Control_LCL:700#out:1;line",
     "rsid":"PQ_Control_LCL:700#out:1;line",
+    "name":"",
+    "label":"",
+    "className":"Simulink.Line",
+    "icon":"LineIcon_icon"
+   },
+   {
+    "sid":"PQ_Control_LCL:673#out:1;line",
+    "rsid":"PQ_Control_LCL:673#out:1;line",
     "name":"",
     "label":"",
     "className":"Simulink.Line",
@@ -4688,6 +4672,14 @@
     "icon":"BlockIcon_icon"
    },
    {
+    "sid":"PQ_Control_LCL:981",
+    "rsid":"PQ_Control_LCL:981",
+    "name":"Constant4",
+    "label":"Constant4",
+    "className":"Simulink.Constant",
+    "icon":"BlockIcon_icon"
+   },
+   {
     "sid":"PQ_Control_LCL:828",
     "rsid":"PQ_Control_LCL:828",
     "name":"Constant6",
@@ -4732,6 +4724,14 @@
     "rsid":"PQ_Control_LCL:827",
     "name":"Divide",
     "label":"Divide",
+    "className":"Simulink.Product",
+    "icon":"BlockIcon_icon"
+   },
+   {
+    "sid":"PQ_Control_LCL:982",
+    "rsid":"PQ_Control_LCL:982",
+    "name":"Divide1",
+    "label":"Divide1",
     "className":"Simulink.Product",
     "icon":"BlockIcon_icon"
    },
@@ -4828,14 +4828,6 @@
     "rsid":"PQ_Control_LCL:732",
     "name":"Gain1",
     "label":"Gain1",
-    "className":"Simulink.Gain",
-    "icon":"BlockIcon_icon"
-   },
-   {
-    "sid":"PQ_Control_LCL:887",
-    "rsid":"PQ_Control_LCL:887",
-    "name":"Gain2",
-    "label":"Gain2",
     "className":"Simulink.Gain",
     "icon":"BlockIcon_icon"
    },
@@ -5216,8 +5208,8 @@
     "icon":"LineIcon_icon"
    },
    {
-    "sid":"PQ_Control_LCL:887#out:1;line",
-    "rsid":"PQ_Control_LCL:887#out:1;line",
+    "sid":"PQ_Control_LCL:982#out:1;line",
+    "rsid":"PQ_Control_LCL:982#out:1;line",
     "name":"",
     "label":"",
     "className":"Simulink.Line",
@@ -5250,6 +5242,14 @@
    {
     "sid":"PQ_Control_LCL:732#out:1;line",
     "rsid":"PQ_Control_LCL:732#out:1;line",
+    "name":"",
+    "label":"",
+    "className":"Simulink.Line",
+    "icon":"LineIcon_icon"
+   },
+   {
+    "sid":"PQ_Control_LCL:981#out:1;line",
+    "rsid":"PQ_Control_LCL:981#out:1;line",
     "name":"",
     "label":"",
     "className":"Simulink.Line",

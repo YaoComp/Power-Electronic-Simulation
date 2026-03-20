@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'PQ_Control_LCL'.
  *
- * Model version                  : 1.88
+ * Model version                  : 1.92
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Mon Apr 28 19:35:53 2025
+ * C/C++ source code generated on : Wed Feb  4 23:09:07 2026
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Texas Instruments->C2000
@@ -20,6 +20,11 @@
 
 /* Block parameters (default storage) */
 P_PQ_Control_LCL_T PQ_Control_LCL_P = {
+  /* Variable: Gain_for_ActiveDamping
+   * Referenced by: '<S6>/Constant4'
+   */
+  1.0F,
+
   /* Variable: Inom
    * Referenced by:
    *   '<Root>/Constant2'
@@ -36,7 +41,7 @@ P_PQ_Control_LCL_T PQ_Control_LCL_P = {
    *   '<S6>/PI Controller'
    *   '<S6>/PI Controller1'
    */
-  14.2122307F,
+  12.6330938F,
 
   /* Variable: Kp_Idq
    * Referenced by:
@@ -45,7 +50,7 @@ P_PQ_Control_LCL_T PQ_Control_LCL_P = {
    *   '<S6>/PI Controller'
    *   '<S6>/PI Controller1'
    */
-  2.26194668F,
+  2.0106194F,
 
   /* Variable: Udc_ref
    * Referenced by:

@@ -11,8 +11,8 @@
     "Description"
    ],
    "values":[
-    "1.88",
-    "Mon Apr 28 18:32:33 2025",
+    "1.92",
+    "Wed Feb 04 22:29:25 2026",
     "disabled",
     "off",
     "on",
@@ -996,7 +996,7 @@
     "Modulation"
    ],
    "values":[
-    "SVPWM"
+    "SPWM"
    ],
    "tabs":[
    ],

@@ -2,7 +2,7 @@
 ## Makefile generated for component 'PQ_Control_LCL'. 
 ## 
 ## Makefile     : PQ_Control_LCL.mk
-## Generated on : Sun Apr 27 11:40:17 2025
+## Generated on : Wed Feb 04 22:31:49 2026
 ## Final product: $(RELATIVE_PATH_TO_ANCHOR)/PQ_Control_LCL.exe
 ## Product type : executable
 ## 
@@ -20,10 +20,10 @@
 
 PRODUCT_NAME              = PQ_Control_LCL
 MAKEFILE                  = PQ_Control_LCL.mk
-MATLAB_ROOT               = C:/PROGRA~1/MATLAB/R2023b
-MATLAB_BIN                = C:/PROGRA~1/MATLAB/R2023b/bin
+MATLAB_ROOT               = S:/MATLAB/R2023b
+MATLAB_BIN                = S:/MATLAB/R2023b/bin
 MATLAB_ARCH_BIN           = $(MATLAB_BIN)/win64
-START_DIR                 = C:/Users/ZZY/OneDrive/PROJEC~1/SIMULA~1/CODEGE~1/PQ_CON~3
+START_DIR                 = C:/Users/y/OneDrive/PROJEC~1/SIMULA~1/CODEGE~1/PQ_CON~1
 SOLVER                    = 
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
